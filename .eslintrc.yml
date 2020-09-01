@@ -10,7 +10,7 @@ globals:
 parserOptions:
   ecmaVersion: 11
 rules: {
-  linebreak-style: ["error", "windows"],
+  linebreak-style: ["error", "windows", "linux"],
   indent: ["error", 4],
   "no-use-before-define": ["error", { "functions": false, "classes": true }],
   no-plusplus: ["error", { "allowForLoopAfterthoughts": true }],
