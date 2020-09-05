@@ -2,12 +2,26 @@ const express = require('express');
 const jwt =require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const mongoose = require('mongoose');
-const User = require('../models/users.js');
+const { User , validarUser} = require('../models/users.js');
 
 const route = express.Router();
 
 route.post('/register', async (req, res) => {
-  
+  const { error } = validarUser(req.body);
+  if (error){
+      // handle errors later --------------------------
+      errorMessage.push(error.details[0].message);
+  } else {
+      // 2- validate input from database
+  const errors = await DB.new_User(ssid, email, phone_number, car_number);
+      if(errors.length != 0) {
+          // handle errors later ------------------------------------
+          errorMessage = [...errorMessage, ...errors];
+      }
+  }
+ 
+
+
   const user = new User({
     name: req.body.name,
     email: req.body.email,

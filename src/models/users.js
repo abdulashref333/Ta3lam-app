@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const validator  = require('validator');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
+const joi = require('joi');
 
 const userSchema = new mongoose.Schema({
     name:{
@@ -55,4 +56,16 @@ userSchema.methods.toJSON  = function (){
     return userObj;
 }
 const User = mongoose.model('users',userSchema);
-module.exports = User;
+
+function validarUser(data) {
+    const schema = joi.object({
+      name: joi.string().required().min(3).max(50),
+      email: joi.string().required().min(5).max(50).email(),
+      password: joi.string().required().min(8).max(50)
+    });
+  
+    return schema.validate(data);
+  }
+
+module.exports.validarUser = validarUser;
+module.exports.User = User;
