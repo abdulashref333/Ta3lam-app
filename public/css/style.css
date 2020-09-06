@@ -145,5 +145,20 @@ footer .container i {
   text-align: center;
   font-size: 18px;
   border-radius: 5px;
->>>>>>> 6fc23b24e97b699faef50584a07ad80328dc78d6
+}
+
+.form-signup {
+  background: url("../images/sigup.jpg");
+  background-size: cover;
+}
+
+.form-signup .row {
+  padding: 30px 0;
+}
+
+.form-signup .row .form-container {
+  background: #fff;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px 0 #000;
 }

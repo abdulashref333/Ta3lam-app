@@ -142,3 +142,19 @@ footer {
 }
 }
 
+//  sign up page 
+// Form 
+.form-signup {
+background: url("../images/sigup.jpg");
+background-size: cover;
+    .row {
+// margin : $MARGIN_SECTION auto;
+padding: 30px 0;
+     .form-container {
+    background: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px 0 #000;
+         }
+    }
+}
