@@ -34,9 +34,17 @@ const userSchema = new mongoose.Schema({
             }
         }
     },
-    avatar:Buffer,
-    isAdmin:Boolean
-});
+    courses:[{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'course'
+    }],
+    avatar:String,
+    isAdmin:{
+        type:Boolean,
+        default:false
+    },
+    isInstructor:Boolean
+},{timestamps:true});
 
 userSchema.methods.genrateToken = async function(){
     const token = await jwt.sign({"id":this._id.toString(), isAdmin:this.isAdmin},process.env.JWT_SCERET_KEY);
@@ -67,5 +75,7 @@ function validarUser(data) {
     return schema.validate(data);
   }
 
-module.exports.validarUser = validarUser;
-module.exports.User = User;
+module.exports = {
+    validarUser,
+    User
+};

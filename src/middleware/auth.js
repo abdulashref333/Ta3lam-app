@@ -1,15 +1,21 @@
 const jwt = require('jsonwebtoken');
+const {User} = require('../models/users');
 
-function authe(req, res, next) {
+async function authe(req, res, next) {
     const auhteHeader = req.headers.authorization;
     const token = auhteHeader && auhteHeader.split(' ')[1];
   
-    if (!token) return res.sendStatus(401);
-  
-    jwt.verify(token, process.env.JWT_SCERET_KEY, (error, user) => {
-      if (error) return res.status(401).send('invalid token');
-      req.user = user;
-      next();
-    });
+    if (!token) return res.sendStatus(400);
+  try{
+    
+    const userId = jwt.verify(token, process.env.JWT_SCERET_KEY);
+    const user = await User.findById(userId.id).exec();
+    // console.log(user);
+    req.user = user;
+    next();
+
+  } catch(error){
+    res.status(401).send(error);
   }
+}
 module.exports = authe ;

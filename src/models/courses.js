@@ -1,5 +1,5 @@
+const Joi = require('joi');
 const mongoose = require('mongoose');
-const validator  = require('validator');
 
 const courseSchema = new mongoose.Schema({
     name:{
@@ -30,19 +30,45 @@ const courseSchema = new mongoose.Schema({
         type:Number,
         default:0
     },
-    reviews:[{
-        stars:Number,
-        content:String,
-        username:String,
-        userId:{
-            type:mongoose.Schema.Types.ObjectId,
-            ref:'user'
-        }
-    }],
+    reveiws:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'review',
+        required:true
+    },
     lessons:{
         type:mongoose.Schema.Types.ObjectId,
-        required:true,
-        ref:'lesson'
-    }
+        ref:'lesson',
+        required:true
+    },
+    poster:String
 },{timestamps:true});
-module.exports = mongoose.model('cours',courseSchema);
+
+function validateCourse(data) {
+    const schema = Joi.object({
+      name: Joi.string().required().min(3).max(50),
+      genre: Joi.string().required(),
+      authors:Joi.array().required().min(1),
+      description:Joi.string().required(),
+      lessons:Joi.array().required().min(1),
+      tags:Joi.array().required().min(1)
+    });
+  
+    return schema.validate(data);
+}
+function validateUpdates(data){
+    const schema = Joi.object({
+        authors:Joi.array().min(1),
+        tags:Joi.array().min(1),
+        name: Joi.string().min(3).max(50),
+        genre: Joi.string(),
+    })
+    return schema.validate(data);
+
+}
+const Cours = mongoose.model('course',courseSchema);
+
+module.exports = {
+    Cours,
+    validateCourse,
+    validateUpdates
+}
