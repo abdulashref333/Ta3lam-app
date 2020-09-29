@@ -6,21 +6,7 @@ const rightPassword = "123456";
 const rightEmail = "ahmed@gg.com";
 // console.log(EMAIL);
 const myForm = document.querySelector("#myloginform");
-myForm.addEventListener("submit",function(e){
-    e.preventDefault();
-
-    const formData = new FormData(this);
-    fetch("http://localhost:3000/api/users/login",{
-        method: "post",
-        body: formData
-    }).then(function(response) {
-        return response.text();
-    }).then(function(text){
-        console.log(text);
-    }).catch(function(error){
-        console.error();
-    })
-})
+    //http://localhost:3000/api/users/login
 
 // EMAIL.addEventListener("keyup",function(){
 //     // checkEmail(EMAIL.value);
