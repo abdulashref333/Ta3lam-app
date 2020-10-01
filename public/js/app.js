@@ -1,3 +1,4 @@
+const { Collection } = require("mongoose");
 
 const EMAIL = document.querySelector("#exampleInputEmail1");
 const PASSWORD = document.querySelector("#exampleInputPassword1");
@@ -8,7 +9,14 @@ const rightEmail = "ahmed@gg.com";
 const myForm = document.querySelector("#myloginform");
     //http://localhost:3000/api/users/login
 
-// EMAIL.addEventListener("keyup",function(){
+myForm.addEventListener("submit",function(e){
+const request = new XMLHttpRequest();
+request.onload = ()=> {
+console.log(request.responseText);
+}
+})
+     // EMAIL.addEventListener("keyup",function(){
+       
 //     // checkEmail(EMAIL.value);
 // })
 // PASSWORD.addEventListener("keyup",function(){
